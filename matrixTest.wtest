@@ -1,9 +1,27 @@
+import matrix.*
 
 
-describe "group of tests " {
+describe "test de la nave" {
 
-  test "test 01" {
-    assert.equals(100, 50+50)
+  test "Neo se sube a la nave y ahora forma parte de la tripulación" {
+    nave.subirALaNave(neo)
+    assert.that(nave.pasajeros().contains(neo))
   }
-
+  test "Trinity se suben a la nave, Trinity se baja y ya no forma parte de la tripulación"{
+    nave.subirALaNave(trinity)
+    nave.bajarDeLaNave(trinity)
+    assert.notThat(nave.pasajeros().contains(trinity))
+  }
+  test "Si Neo y Morfeo suben a la nave, todos están en condiciones de enfrentar a un agente"{
+    nave.subirALaNave(neo)
+    nave.subirALaNave(morfeo)
+    assert.that(nave.todosEstanEnCondiciones())
+  }
+  test "Neo morfeo y trinity se suben a la nave, y ésta choca, quedandose sin pasajeros"{
+    nave.subirALaNave(neo)
+    nave.subirALaNave(morfeo)
+    nave.subirALaNave(trinity)
+    nave.chocar()
+    assert.that(nave.pasajeros().isEmpty())
+  }
 }
